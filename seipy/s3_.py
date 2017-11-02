@@ -3,11 +3,12 @@ import boto3
 import io
 
 
-def s3unzip(s3bucket, s3zip):
+def s3unzip(s3zip_path):
     """
     unzip a zip file on s3 and list contents
     copy-pasted from https://stackoverflow.com/questions/23376816/python-s3-download-zip-file
     """
+    s3bucket, s3zip = s3zip_path.split("s3://")[-1].split('/', 1)
     print("type in aws access key yo:")
     myAccessKey = input()
     print("type in aws secret key yo:")
