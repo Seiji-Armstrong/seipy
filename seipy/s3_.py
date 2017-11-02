@@ -3,10 +3,14 @@ import boto3
 import io
 
 
-def s3unzip(s3zip_path):
+def s3zip_func(s3zip_path, func, **kwargs):
     """
-    unzip a zip file on s3 and list contents
-    copy-pasted from https://stackoverflow.com/questions/23376816/python-s3-download-zip-file
+    unzip a zip file on s3 and perform func with kwargs.
+     func must accept `fpath` and `subfname` as key word arguments.
+    fpath: pointer to unzipped subfile in zip file
+    subfname: str of subfile in zip file
+
+    adapted from https://stackoverflow.com/questions/23376816/python-s3-download-zip-file
     """
     s3bucket, s3zip = s3zip_path.split("s3://")[-1].split('/', 1)
     print("type in aws access key yo:")
@@ -31,3 +35,4 @@ def s3unzip(s3zip_path):
         with zipfile.ZipFile(tf, mode='r') as zipf:
             for subfile in zipf.namelist():
                 print(subfile)
+                func(fpath=zipf.open(subfile), subfname=subfile, **kwargs)
