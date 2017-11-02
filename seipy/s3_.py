@@ -6,9 +6,9 @@ import io
 def s3zip_func(s3zip_path, func, **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
-     func must accept `fpath` and `subfname` as key word arguments.
+     func must accept `fpath` and `fname` as key word arguments.
     fpath: pointer to unzipped subfile in zip file
-    subfname: str of subfile in zip file
+    fname: str of subfile in zip file
 
     adapted from https://stackoverflow.com/questions/23376816/python-s3-download-zip-file
     """
@@ -35,4 +35,4 @@ def s3zip_func(s3zip_path, func, **kwargs):
         with zipfile.ZipFile(tf, mode='r') as zipf:
             for subfile in zipf.namelist():
                 print(subfile)
-                func(fpath=zipf.open(subfile), subfname=subfile, **kwargs)
+                func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
