@@ -2,7 +2,7 @@ import subprocess
 from os import walk
 from os.path import join
 from functools import reduce
-from collections import Counter
+from collections import Counter, namedtuple
 import ast
 import mmap
 import re
@@ -263,3 +263,16 @@ def cumsum(collec, tuple_list_id=None, thresh=None):
         cumsum += collec[i]
         i += 1
     return i
+
+
+def named_two_tuples(list_1, list_2, tuple_name='ntup', tuple_el_names='x y'):
+    """
+    Given two ordered lists of x and y
+        return a list of namedtuples
+
+    Example usage:
+    >> named_two_tuples(feat_importance, feat_names,
+                        tuple_name='fimp', tuple_el_names='importance name')
+    """
+    ntup = namedtuple(tuple_name, tuple_el_names)
+    return [ntup(el[0], el[1]) for el in zip(list_1, list_2)]
