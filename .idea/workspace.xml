@@ -20,8 +20,8 @@
       <file leaf-file-name="base.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seipy/pandas_/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="762">
-              <caret line="376" column="16" lean-forward="true" selection-start-line="376" selection-start-column="16" selection-end-line="376" selection-end-column="16" />
+            <state relative-caret-position="822">
+              <caret line="359" column="17" lean-forward="false" selection-start-line="359" selection-start-column="17" selection-end-line="359" selection-end-column="17" />
               <folding>
                 <element signature="e#175#203#0" expanded="true" />
               </folding>
@@ -412,7 +412,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4560" y="23" width="960" height="1057" extended-state="0" />
+    <frame x="4560" y="23" width="960" height="1057" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18636848" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -564,8 +564,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seipy/pandas_/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="762">
-          <caret line="376" column="16" lean-forward="true" selection-start-line="376" selection-start-column="16" selection-end-line="376" selection-end-column="16" />
+        <state relative-caret-position="822">
+          <caret line="359" column="17" lean-forward="false" selection-start-line="359" selection-start-column="17" selection-end-line="359" selection-end-column="17" />
           <folding>
             <element signature="e#175#203#0" expanded="true" />
           </folding>

@@ -336,7 +336,11 @@ def filt(orig_df, **params):
 
     def greater_than(a, b): return a > b
 
+    def greater_or_equal(a, b): return a >= b
+
     def less_than(a, b): return a < b
+
+    def less_or_equal(a, b): return a <= b
 
     def isin(a, b): return a.isin(b)
 
@@ -351,7 +355,9 @@ def filt(orig_df, **params):
     operation = {"==": equivalent,
                  "!=": not_equivalent,
                  ">": greater_than,
+                 ">=": greater_or_equal,
                  "<": less_than,
+                 "<=": less_or_equal,
                  "isin": isin,
                  "notin": notin,
                  "contains": contains,
