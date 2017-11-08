@@ -364,3 +364,21 @@ def filt(orig_df, **params):
     conds = [cond(el[0], el[1][0], el[1][1]) for el in filt_on]
     logic = [operation[x.operator](input_df[x.key], x.val).fillna(False) for x in conds]
     return input_df[np.all(logic, axis=0)]
+
+
+def remove_double_quotes(orig_df: pd.DataFrame, quote_cols, all_cols=False) -> pd.DataFrame:
+    """
+    Replace double quotes found in fields with two single quotes.
+     This must be done for SQL queries to correctly parse fields in Hive (and others)
+    """
+    def replace_quotes(x):
+        if isinstance(x, str):
+            return x.replace("\"", "''")
+        return x
+
+    out_df = orig_df.copy()
+    if all_cols:
+        return out_df.applymap(replace_quotes)
+    else:
+        out_df[quote_cols] = out_df[quote_cols].applymap(replace_quotes)
+        return out_df
