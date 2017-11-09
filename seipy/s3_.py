@@ -3,7 +3,7 @@ import boto3
 import io
 
 
-def s3zip_func(s3zip_path, func, **kwargs):
+def s3zip_func(s3zip_path, func, exclude: list = [], **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
      func must accept `fpath` and `fname` as key word arguments.
@@ -34,5 +34,8 @@ def s3zip_func(s3zip_path, func, **kwargs):
         # Read the file as a zipfile and process the members
         with zipfile.ZipFile(tf, mode='r') as zipf:
             for subfile in zipf.namelist():
-                print(subfile)
-                func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
+                if subfile in exclude:
+                    print("{} skipped.".format(subfile))
+                else:
+                    print("{} opened.".format(subfile))
+                    func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
