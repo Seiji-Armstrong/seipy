@@ -10,6 +10,35 @@ import json
 import pandas as pd
 
 
+class LabeledData(dict):
+    """Container object for datasets
+
+    Dictionary-like object that exposes its keys as attributes.
+
+    (copied from sklearn.datasets.base.Bunch)
+    """
+
+    def __init__(self, **kwargs):
+        # type: (object) -> object
+        super(LabeledData, self).__init__(kwargs)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+    def __dir__(self):
+        return self.keys()
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(key)
+
+    def __setstate__(self, state):
+        # https://github.com/scikit-learn/scikit-learn/issues/6196
+        pass
+
+
 def issue_shell_command(cmd: str, my_env=None):
     """
     Issues a command in a shell and returns the result as str.
