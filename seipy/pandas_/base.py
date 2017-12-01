@@ -44,7 +44,77 @@ def df_duplicate_row(df, row, row_cols):
     return df_rows
 
 
-### Useful to remember
+def filt(orig_df, **params):
+    """
+    Filter DataFrame on any number of equality conditions.
+    Example usage:
+    >> filt_df(df,
+               season="summer",
+               age=(">", 18),
+               sport=("isin", ["Basketball", "Soccer"]),
+               name=("contains", "Armstrong")
+               )
+    >> a = { 'season': "summer", 'age': (">", 18)}
+    >> filt_df(df, **a) # can feed in dict with **dict notation
+    notes:
+        any input with single value is assumed to use "equivalent" operation and is modified.
+        numpy.all is used to apply AND operation element-wise across 0th axis.
+        NA values are filled to False for conditions.
+    """
+    input_df = orig_df.copy()
+
+    if not params.items():
+        return input_df
+
+    def equivalent(a, b): return a == b
+
+    def greater_than(a, b): return a > b
+
+    def greater_or_equal(a, b): return a >= b
+
+    def less_than(a, b): return a < b
+
+    def less_or_equal(a, b): return a <= b
+
+    def isin(a, b): return a.isin(b)
+
+    def notin(a, b): return ~(a.isin(b))
+
+    def contains(a, b): return a.str.contains(b)
+
+    def notcontains(a, b): return ~(a.str.contains(b))
+
+    def not_equivalent(a, b): return a != b
+
+    operation = {"==": equivalent,
+                 "!=": not_equivalent,
+                 ">": greater_than,
+                 ">=": greater_or_equal,
+                 "<": less_than,
+                 "<=": less_or_equal,
+                 "isin": isin,
+                 "notin": notin,
+                 "contains": contains,
+                 "notcontains": notcontains}
+
+    cond = namedtuple('cond', 'key operator val')
+
+    filt_on = [(el[0], el[1]) if isinstance(el[1], tuple) else (el[0], ("==", el[1]))
+               for el in params.items()]  # enforcing equivalence operation on single vals.
+    conds = [cond(el[0], el[1][0], el[1][1]) for el in filt_on]
+    logic = [operation[x.operator](input_df[x.key], x.val).fillna(False) for x in conds]
+    return input_df[np.all(logic, axis=0)]
+
+
+def filt_read_csv(file_path, chunksize=100000, **filt_conds):
+    """
+    read a csv in chunks while filtering on conditions
+    wrapper of pd.read_csv and uses pandas_.base.filt
+    """
+    iter_csv = pd.read_csv(file_path, iterator=True, chunksize=chunksize)
+    return pd.concat([filt(chunk, **filt_conds) for chunk in iter_csv], ignore_index=True)
+
+
 def display_max_rows(max_num=500):
     """sets number of rows to display (useful in Jupyter environment)
     """
@@ -308,68 +378,6 @@ def remove_prepended_comment(orig_df):
     input_df = orig_df.copy()
     first_col = input_df.columns[0]
     return input_df.rename(columns={first_col: first_col.replace('#', "")})
-
-
-def filt(orig_df, **params):
-    """
-    Filter DataFrame on any number of equality conditions.
-    Example usage:
-    >> filt_df(df,
-               season="summer",
-               age=(">", 18),
-               sport=("isin", ["Basketball", "Soccer"]),
-               name=("contains", "Armstrong")
-               )
-    >> a = { 'season': "summer", 'age': (">", 18)}
-    >> filt_df(df, **a) # can feed in dict with **dict notation
-    notes:
-        any input with single value is assumed to use "equivalent" operation and is modified.
-        numpy.all is used to apply AND operation element-wise across 0th axis.
-        NA values are filled to False for conditions.
-    """
-    input_df = orig_df.copy()
-
-    if not params.items():
-        return input_df
-
-    def equivalent(a, b): return a == b
-
-    def greater_than(a, b): return a > b
-
-    def greater_or_equal(a, b): return a >= b
-
-    def less_than(a, b): return a < b
-
-    def less_or_equal(a, b): return a <= b
-
-    def isin(a, b): return a.isin(b)
-
-    def notin(a, b): return ~(a.isin(b))
-
-    def contains(a, b): return a.str.contains(b)
-
-    def notcontains(a, b): return ~(a.str.contains(b))
-
-    def not_equivalent(a, b): return a != b
-
-    operation = {"==": equivalent,
-                 "!=": not_equivalent,
-                 ">": greater_than,
-                 ">=": greater_or_equal,
-                 "<": less_than,
-                 "<=": less_or_equal,
-                 "isin": isin,
-                 "notin": notin,
-                 "contains": contains,
-                 "notcontains": notcontains}
-
-    cond = namedtuple('cond', 'key operator val')
-
-    filt_on = [(el[0], el[1]) if isinstance(el[1], tuple) else (el[0], ("==", el[1]))
-               for el in params.items()]  # enforcing equivalence operation on single vals.
-    conds = [cond(el[0], el[1][0], el[1][1]) for el in filt_on]
-    logic = [operation[x.operator](input_df[x.key], x.val).fillna(False) for x in conds]
-    return input_df[np.all(logic, axis=0)]
 
 
 def remove_double_quotes(orig_df: pd.DataFrame, quote_cols, all_cols=False) -> pd.DataFrame:

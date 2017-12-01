@@ -25,6 +25,7 @@ def distmat(fframe, metric=None, possible_metrics=False):
     Generate a distance matrix from a DataFrame containing only feature columns.
         The distance metric is specified with `metric`.
     If `possible_metrics` is True, return list of possible metrics.
+
     """
     if possible_metrics:
         d_metric = ["braycurtis", "canberra", "chebyshev", "cityblock", "correlation",
