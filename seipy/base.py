@@ -265,7 +265,7 @@ def file_len(fname):
     return i + 1
 
 
-def str_literal(str_field: str):
+def literal(str_field: str):
     """
     converts string of object back to object
     example:
