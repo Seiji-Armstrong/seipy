@@ -1,9 +1,12 @@
+import pandas as pd
 
 
-def s3spark_init():
+def s3spark_init(cred_fpath=None):
     """
     initialise SparkSession for use with Jupyter and s3 SQL queries
     Returns spark session
+
+    aws credentials file default path: "~/.aws/credentials"
     """
     import os
     os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0 pyspark-shell'
@@ -16,10 +19,17 @@ def s3spark_init():
         .getOrCreate()
 
     hadoopConf = spark.sparkContext._jsc.hadoopConfiguration()
-    print("type in aws access key yo:")
-    myAccessKey = input()
-    print("type in aws secret key yo:")
-    mySecretKey = input()
+
+    if cred_fpath is not None:
+        print("reading keys from credentials file")
+        keys = pd.read_csv(cred_fpath, sep="=")
+        myAccessKey = keys.loc['aws_access_key_id ']['[default]'].strip()
+        mySecretKey = keys.loc['aws_secret_access_key ']['[default]'].strip()
+    else:
+        print("type in aws access key yo:")
+        myAccessKey = input()
+        print("type in aws secret key yo:")
+        mySecretKey = input()
 
     hadoopConf.set("fs.s3.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
     hadoopConf.set("fs.s3.awsAccessKeyId", myAccessKey)
