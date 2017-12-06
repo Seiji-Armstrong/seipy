@@ -20,7 +20,7 @@ def get_creds(cred_fpath=None):
     return myAccessKey, mySecretKey
 
 
-def s3zip_func(s3zip_path, func, exclude: list = [], cred_fpath=None, **kwargs):
+def s3zip_func(s3zip_path, func, include: list = [], exclude: list = [], cred_fpath=None, **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
      func must accept `fpath` and `fname` as key word arguments.
@@ -41,6 +41,8 @@ def s3zip_func(s3zip_path, func, exclude: list = [], cred_fpath=None, **kwargs):
     bucket = s3.Bucket(s3bucket)
     obj = bucket.Object(s3zip)
 
+    results = []
+
     with io.BytesIO(obj.get()["Body"].read()) as tf:
 
         # rewind the file
@@ -49,8 +51,16 @@ def s3zip_func(s3zip_path, func, exclude: list = [], cred_fpath=None, **kwargs):
         # Read the file as a zipfile and process the members
         with zipfile.ZipFile(tf, mode='r') as zipf:
             for subfile in zipf.namelist():
-                if subfile in exclude:
-                    print("{} skipped.".format(subfile))
+                if include:
+                    if subfile in include:
+                        print("{} opened.".format(subfile))
+                        result = func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
+                        results.append((subfile, result))
                 else:
-                    print("{} opened.".format(subfile))
-                    func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
+                    if subfile in exclude:
+                        print("{} skipped.".format(subfile))
+                    else:
+                        print("{} opened.".format(subfile))
+                        result = func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
+                        results.append((subfile, result))
+    return results
