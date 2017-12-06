@@ -1,4 +1,4 @@
-import pandas as pd
+from ..s3_ import get_creds
 
 
 def s3spark_init(cred_fpath=None):
@@ -19,17 +19,7 @@ def s3spark_init(cred_fpath=None):
         .getOrCreate()
 
     hadoopConf = spark.sparkContext._jsc.hadoopConfiguration()
-
-    if cred_fpath is not None:
-        print("reading keys from credentials file")
-        keys = pd.read_csv(cred_fpath, sep="=")
-        myAccessKey = keys.loc['aws_access_key_id ']['[default]'].strip()
-        mySecretKey = keys.loc['aws_secret_access_key ']['[default]'].strip()
-    else:
-        print("type in aws access key yo:")
-        myAccessKey = input()
-        print("type in aws secret key yo:")
-        mySecretKey = input()
+    myAccessKey, mySecretKey = get_creds(cred_fpath=cred_fpath)
 
     hadoopConf.set("fs.s3.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
     hadoopConf.set("fs.s3.awsAccessKeyId", myAccessKey)

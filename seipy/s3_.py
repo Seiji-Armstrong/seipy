@@ -1,9 +1,26 @@
 import zipfile
 import boto3
 import io
+import pandas as pd
 
 
-def s3zip_func(s3zip_path, func, exclude: list = [], **kwargs):
+def get_creds(cred_fpath=None):
+    """helper function to obtain aws keys
+    """
+    if cred_fpath is not None:
+        print("reading keys from credentials file")
+        keys = pd.read_csv(cred_fpath, sep="=")
+        myAccessKey = keys.loc['aws_access_key_id ']['[default]'].strip()
+        mySecretKey = keys.loc['aws_secret_access_key ']['[default]'].strip()
+    else:
+        print("type in aws access key yo:")
+        myAccessKey = input()
+        print("type in aws secret key yo:")
+        mySecretKey = input()
+    return myAccessKey, mySecretKey
+
+
+def s3zip_func(s3zip_path, func, exclude: list = [], cred_fpath=None, **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
      func must accept `fpath` and `fname` as key word arguments.
@@ -13,10 +30,8 @@ def s3zip_func(s3zip_path, func, exclude: list = [], **kwargs):
     adapted from https://stackoverflow.com/questions/23376816/python-s3-download-zip-file
     """
     s3bucket, s3zip = s3zip_path.split("s3://")[-1].split('/', 1)
-    print("type in aws access key yo:")
-    myAccessKey = input()
-    print("type in aws secret key yo:")
-    mySecretKey = input()
+    myAccessKey, mySecretKey = get_creds(cred_fpath=cred_fpath)
+
     session = boto3.session.Session(
         aws_access_key_id=myAccessKey,
         aws_secret_access_key=mySecretKey
