@@ -385,6 +385,7 @@ def remove_double_quotes(orig_df: pd.DataFrame, quote_cols, all_cols=False) -> p
     Replace double quotes found in fields with two single quotes.
      This must be done for SQL queries to correctly parse fields in Hive (and others)
     """
+
     def replace_quotes(x):
         if isinstance(x, str):
             return x.replace("\"", "''")
@@ -396,3 +397,17 @@ def remove_double_quotes(orig_df: pd.DataFrame, quote_cols, all_cols=False) -> p
     else:
         out_df[quote_cols] = out_df[quote_cols].applymap(replace_quotes)
         return out_df
+
+
+def apply_uniq(df, orig_col, new_col, func):
+    """
+    Apply func to only unique entries and join with original to fill.
+    Answered for:
+    https://stackoverflow.com/questions/46798532/how-do-you-effectively-use-pd-dataframe-apply-on-rows-with-duplicate-values/
+
+    """
+    out_df = df.copy()
+    return out_df.merge(out_df[[orig_col]]
+                        .drop_duplicates()
+                        .assign(**{new_col: lambda x: x.apply(func)}
+                                ), how='inner', on=orig_col)
