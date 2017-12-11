@@ -409,5 +409,5 @@ def apply_uniq(df, orig_col, new_col, func):
     out_df = df.copy()
     return out_df.merge(out_df[[orig_col]]
                         .drop_duplicates()
-                        .assign(**{new_col: lambda x: x.apply(func)}
+                        .assign(**{new_col: lambda x: x[orig_col].apply(func)}
                                 ), how='inner', on=orig_col)
