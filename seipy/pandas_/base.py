@@ -405,8 +405,12 @@ def apply_uniq(df, orig_col, new_col, func):
     Answered for:
     https://stackoverflow.com/questions/46798532/how-do-you-effectively-use-pd-dataframe-apply-on-rows-with-duplicate-values/
 
+    bug: when col exists,
+
     """
     out_df = df.copy()
+    if new_col in out_df:
+        out_df = out_df.drop(new_col, axis='columns')
     return out_df.merge(out_df[[orig_col]]
                         .drop_duplicates()
                         .assign(**{new_col: lambda x: x[orig_col].apply(func)}
