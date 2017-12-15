@@ -399,13 +399,11 @@ def remove_double_quotes(orig_df: pd.DataFrame, quote_cols, all_cols=False) -> p
         return out_df
 
 
-def apply_uniq(df, orig_col, new_col, func):
+def apply_uniq(df, orig_col, new_col, _func):
     """
     Apply func to only unique entries and join with original to fill.
     Answered for:
     https://stackoverflow.com/questions/46798532/how-do-you-effectively-use-pd-dataframe-apply-on-rows-with-duplicate-values/
-
-    bug: when col exists,
 
     """
     out_df = df.copy()
@@ -413,5 +411,5 @@ def apply_uniq(df, orig_col, new_col, func):
         out_df = out_df.drop(new_col, axis='columns')
     return out_df.merge(out_df[[orig_col]]
                         .drop_duplicates()
-                        .assign(**{new_col: lambda x: x[orig_col].apply(func)}
+                        .assign(**{new_col: lambda x: x[orig_col].apply(_func)}
                                 ), how='inner', on=orig_col)
