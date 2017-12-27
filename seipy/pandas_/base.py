@@ -48,14 +48,14 @@ def filt(orig_df, **params):
     """
     Filter DataFrame on any number of equality conditions.
     Example usage:
-    >> filt_df(df,
+    >> filt(df,
                season="summer",
                age=(">", 18),
                sport=("isin", ["Basketball", "Soccer"]),
                name=("contains", "Armstrong")
                )
     >> a = { 'season': "summer", 'age': (">", 18)}
-    >> filt_df(df, **a) # can feed in dict with **dict notation
+    >> filt(df, **a) # can feed in dict with **dict notation
     notes:
         any input with single value is assumed to use "equivalent" operation and is modified.
         numpy.all is used to apply AND operation element-wise across 0th axis.

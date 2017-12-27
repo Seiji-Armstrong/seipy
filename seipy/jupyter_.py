@@ -44,13 +44,13 @@ def disp(df):
     display(HTML(df.to_html(index=False)))
 
 
-def jupyter_containing_str(search_str='',
-                           on_docker=True,
-                           git_dir='~/git/experiments/',
-                           start_date='2015-01-01', end_date='2018-12-31',
-                           exclude_str='checkpoint',
-                           include_prefix=False,
-                           prefix='notebooks/'):
+def notebook_contains(search_str='',
+                      on_docker=True,
+                      git_dir='~/git/experiments/',
+                      start_date='2015-01-01', end_date='2018-12-31',
+                      exclude_str='checkpoint',
+                      include_prefix=False,
+                      prefix='notebooks/'):
     """
     return all jupyter notebooks containing search_str in specified time window.
     TO DO: extend to list of search_strings, extend to list of exclude_strings.
