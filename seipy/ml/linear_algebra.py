@@ -20,14 +20,14 @@ def cos_sim_sci(vec1, vec2):
     return 1 - distance.cosine(vec1, vec2)
 
 
-def distmat(fframe, metric=None, possible_metrics=False):
+def distmat(fframe=None, metric=None):
     """
     Generate a distance matrix from a DataFrame containing only feature columns.
         The distance metric is specified with `metric`.
-    If `possible_metrics` is True, return list of possible metrics.
+    If called with no args, return list of possible metrics.
 
     """
-    if possible_metrics:
+    if fframe is None:
         d_metric = ["braycurtis", "canberra", "chebyshev", "cityblock", "correlation",
                     "cosine", "dice", "euclidean", "hamming", "jaccard", "kulsinski",
                     "mahalanobis", "matching", "minkowski", "rogerstanimoto",
