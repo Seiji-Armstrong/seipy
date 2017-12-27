@@ -1,6 +1,6 @@
 # seipy
 
-Helper functions for python data science stack as well as spark, AWS, jupyter.
+Helper functions for the python data science stack as well as spark, AWS, jupyter.
 
 ## What is it
 
@@ -9,6 +9,7 @@ This library contains helpers and wrappers for common data science libraries in 
 - numpy
 - scipy
 - sklearn
+- matplotlib
 - pyspark
 
 There are also functions that simplify common manipulations for machine learning and data science
@@ -37,7 +38,7 @@ This will return the same DataFrame as performing:
 `df[new_col] = df[orig_col].apply(_func)`
 but is much more performant when there are many duplicate entries in `orig_col`.
 
-It works by performing the function `_func` only on the unique entries and then joining to original DataFrame.
+It works by performing the function `_func` only on the unique entries and then merging with the original DataFrame.
 Originally answered on stack overflow:
 https://stackoverflow.com/questions/46798532/how-do-you-effectively-use-pd-dataframe-apply-on-rows-with-duplicate-values/
 
@@ -69,7 +70,7 @@ This will prints possible distance metrics such as "euclidean" "chebyshev", "ham
 distmat(fframe, metric)
 ```
 This generates a distance matrix using `metric`.
-Note, this function is wrapper of scipy.spatial.distance.cdist
+Note, this function is a wrapper of scipy.spatial.distance.cdist
 
 
 ### jupyter
@@ -77,12 +78,23 @@ Note, this function is wrapper of scipy.spatial.distance.cdist
 ```
 from seipy import notebook_contains
 notebook_contains(search_str,
-                  on_docker=True,
+                  on_docker=False,
                   git_dir='~/git/experiments/',
                   start_date='2015-01-01', end_date='2018-12-31')
 ```
-Will print a list of notebooks that contain the str `search_str`.
+Prints a list of notebooks that contain the str `search_str`.
 Very useful for these situations: "Where's that notebook where I was trying that one thing that one time?"
+Note that this requires notebooks to contain
+
+### s3
+```
+from seipy import s3zip_func
+s3zip_func(s3zip_path, _func, cred_fpath=cred_fpath, **kwargs)
+```
+This one's kinda nice. It can apply a function `_func` to subfiles in a zip file sitting on s3,
+and pass key word arguments to it.
+I use it to filter and enrich some csv files that periodically get zipped to s3, for example.
+
 
 ### spark and s3 on jupyter
 
