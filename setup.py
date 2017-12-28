@@ -10,10 +10,14 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name='seipy',
-    version='1.1.0b1',
+    version='1.2.0b1',
     description='Helper functions for data science',
+    long_description=long_description,
     url='https://github.com/Seiji-Armstrong/seipy',
     author_email='seiji.armstrong@gmail.com',
     license='MIT',
@@ -29,15 +33,16 @@ setup(
     ],
     keywords='pandas numpy spark jupyter data-science machine-learning s3',
     packages=find_packages(exclude=[]),
-
-    # This field lists other packages that your project depends on to run.
-    # Any package you put here will be installed by pip when your project is
-    # installed, so they must be valid existing projects.
-    #
-    # For an analysis of "install_requires" vs pip's requirements files see:
-    # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['pandas', 'scipy', 'sklearn', 'numpy', 'pandas',
-                      'matplotlib', 'scapy-python3', 'matplotlib', 'seaborn',
-                      'IPython', 'boto3', 'pyspark'],
-    python_requires='>=3'
+    install_requires=['pandas',
+                      'scipy',
+                      'scikit-learn',
+                      'numpy',
+                      'pandas',
+                      'matplotlib',
+                      'scapy-python3',
+                      'seaborn',
+                      'ipython',
+                      'boto3',
+                      'pyspark'],
+    python_requires='>=3',
 )
