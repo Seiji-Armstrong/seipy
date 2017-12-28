@@ -54,7 +54,7 @@ filt(df,
     )
 
 # example with dict notation
-a = { 'season': "summer", 'age': (">", 18)}
+a = {'season': "summer", 'age': (">", 18)}
 filt(df, **a)
 ```
 
@@ -84,15 +84,13 @@ notebook_contains(search_str,
 ```
 Prints a list of notebooks that contain the str `search_str`.
 Very useful for these situations: "Where's that notebook where I was trying that one thing that one time?"
-Note that this requires notebooks to contain
 
 ### s3
 ```
 from seipy import s3zip_func
 s3zip_func(s3zip_path, _func, cred_fpath=cred_fpath, **kwargs)
 ```
-This one's kinda nice. It can apply a function `_func` to subfiles in a zip file sitting on s3,
-and pass key word arguments to it.
+This one's kinda nice. It allows one to apply a function `_func` to each subfile in a zip file sitting on s3.
 I use it to filter and enrich some csv files that periodically get zipped to s3, for example.
 
 
@@ -102,7 +100,7 @@ I use it to filter and enrich some csv files that periodically get zipped to s3,
 from seipy import s3spark_init
 spark = s3spark_init(cred_fpath)
 ```
-Returns `spark`, a `SparkSession` that makes it possible to interact with s3.
+Returns `spark`, a `SparkSession` that makes it possible to interact with s3 from jupyter notebooks.
 `cred_fpath` is the file path to the aws credentials file containing your keys.
 
 
@@ -114,5 +112,10 @@ merge_two_dicts(dict_1, dict_2)
 ```
 Returns the merged dict `{**dict_1, **dict_2}`.
 An extension for mulitple dicts is `reduce(lambda d1,d2: {**d1,**d2}, dict_args[0])`
+
+### Getting help
+
+Please either post an issue on this github repo, or email the author `seiji dot armstrong at gmail` with feedback,
+feature requests, or to complain that something doesn't work as expected.
 
 
