@@ -1,7 +1,7 @@
 from ..s3_ import get_creds
 
 
-def s3spark_init(cred_fpath=None):
+def s3spark_init(cred_fpath="~/.aws/credentials"):
     """
     initialise SparkSession for use with Jupyter and s3 SQL queries
     Returns spark session
