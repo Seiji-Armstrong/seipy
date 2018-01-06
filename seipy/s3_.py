@@ -1,6 +1,7 @@
 import zipfile
 import boto3
 import io
+import datetime
 import pandas as pd
 
 
@@ -51,6 +52,7 @@ def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_f
         # Read the file as a zipfile and process the members
         with zipfile.ZipFile(tf, mode='r') as zipf:
             for subfile in zipf.namelist():
+                print("current time is {}".format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
                 if include:
                     if subfile in include:
                         print("{} opened.".format(subfile))
