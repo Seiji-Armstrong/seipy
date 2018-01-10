@@ -413,3 +413,14 @@ def apply_uniq(df, orig_col, new_col, _func):
                         .drop_duplicates()
                         .assign(**{new_col: lambda x: x[orig_col].apply(_func)}
                                 ), how='inner', on=orig_col)
+
+
+def mult_types(df):
+    """
+    Return series of columns with unique number of types per col
+
+    Can be useful to see which cols have more than 1 type, for example:
+    >> counts = mult_types(df)
+    >> counts[counts != 1]
+    """
+    return df.applymap(type).drop_duplicates().apply(pd.Series.nunique)
