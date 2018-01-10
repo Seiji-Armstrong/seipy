@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b159cb4f-dd85-485a-ad68-a0cb7f716fff" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seipy/s3_.py" afterPath="$PROJECT_DIR$/seipy/s3_.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,8 +43,8 @@
       <file leaf-file-name="s3_.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seipy/s3_.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
-              <caret line="54" column="105" lean-forward="false" selection-start-line="54" selection-start-column="105" selection-end-line="54" selection-end-column="105" />
+            <state relative-caret-position="657">
+              <caret line="62" column="59" lean-forward="false" selection-start-line="62" selection-start-column="59" selection-end-line="62" selection-end-column="59" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -66,7 +67,7 @@
       <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seipy/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1782">
+            <state relative-caret-position="3540">
               <caret line="245" column="63" lean-forward="false" selection-start-line="245" selection-start-column="63" selection-end-line="245" selection-end-column="63" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
@@ -79,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/seipy/spark_/base.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+              <caret line="17" column="30" lean-forward="false" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -174,7 +175,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="1680" />
     <option name="y" value="23" />
-    <option name="width" value="960" />
+    <option name="width" value="648" />
     <option name="height" value="1057" />
   </component>
   <component name="ProjectView">
@@ -192,6 +193,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -257,7 +259,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="RecentsManager">
@@ -416,10 +417,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1680" y="23" width="960" height="1057" extended-state="0" />
+    <frame x="1680" y="23" width="648" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17252396" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2567783" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -846,7 +847,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seipy/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1782">
+        <state relative-caret-position="3540">
           <caret line="245" column="63" lean-forward="false" selection-start-line="245" selection-start-column="63" selection-end-line="245" selection-end-column="63" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
@@ -857,15 +858,15 @@
     <entry file="file://$PROJECT_DIR$/seipy/spark_/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+          <caret line="17" column="30" lean-forward="false" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/seipy/s3_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="54" column="105" lean-forward="false" selection-start-line="54" selection-start-column="105" selection-end-line="54" selection-end-column="105" />
+        <state relative-caret-position="657">
+          <caret line="62" column="59" lean-forward="false" selection-start-line="62" selection-start-column="59" selection-end-line="62" selection-end-column="59" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

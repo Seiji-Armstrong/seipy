@@ -56,13 +56,19 @@ def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_f
                 if include:
                     if subfile in include:
                         print("{} opened.".format(subfile))
-                        result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
-                        results.append((subfile, result))
+                        try:
+                            result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
+                            results.append((subfile, result))
+                        except:
+                            print("{} skipped due to error.".format(subfile))
                 else:
                     if subfile in exclude:
                         print("{} skipped.".format(subfile))
                     else:
                         print("{} opened.".format(subfile))
-                        result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
-                        results.append((subfile, result))
+                        try:
+                            result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
+                            results.append((subfile, result))
+                        except:
+                            print("{} skipped due to error.".format(subfile))
     return results
