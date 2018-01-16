@@ -313,4 +313,4 @@ def replace_rn(strobj):
     and these can create parsing dramas when reading/writing to disk.
     This helper function mitigates this by replacing it with a benign alternative.
     """
-    return strobj.replace('\r', '-r-').replace('\n', '-n-')
+    return strobj.replace('\r', 'esc-r-').replace('\n', 'esc-n-')
