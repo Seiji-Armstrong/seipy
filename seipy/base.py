@@ -305,3 +305,12 @@ def named_two_tuples(list_1, list_2, tuple_name='ntup', tuple_el_names='x y'):
     """
     ntup = namedtuple(tuple_name, tuple_el_names)
     return [ntup(el[0], el[1]) for el in zip(list_1, list_2)]
+
+
+def replace_rn(strobj):
+    """
+    There are characters such as "\r" and "\n" that perform line breaks (or returns),
+    and these can create parsing dramas when reading/writing to disk.
+    This helper function mitigates this by replacing it with a benign alternative.
+    """
+    return strobj.replace('\r', '-r-').replace('\n', '-n-')
