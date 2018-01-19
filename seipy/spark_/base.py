@@ -27,7 +27,7 @@ def s3spark_init(cred_fpath="~/.aws/credentials"):
     return spark
 
 
-def register_sql(spark, files, table_name="table"):
+def register_sql(spark, files, schema=None, sep=None, table_name="table"):
     """
     Register a list of files as a SQL temporary view.
 
@@ -40,5 +40,5 @@ def register_sql(spark, files, table_name="table"):
     Example usage after registering table:
     >> DF = spark.sql("SELECT * FROM table")
     """
-    tempFiles = spark.read.csv(files, header=True)
+    tempFiles = spark.read.csv(files, schema=schema, sep=sep, header=True)
     tempFiles.createOrReplaceTempView(table_name)
