@@ -21,7 +21,7 @@ def get_creds(cred_fpath=None):
     return myAccessKey, mySecretKey
 
 
-def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_fpath=None, **kwargs):
+def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_fpath=None, verbose=False, **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
      func must accept `fpath` and `fname` as key word arguments.
@@ -52,17 +52,21 @@ def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_f
         # Read the file as a zipfile and process the members
         with zipfile.ZipFile(tf, mode='r') as zipf:
             for subfile in zipf.namelist():
-                print("current time is {}".format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+                if verbose:
+                    print("current time is {}".format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
                 if include:
                     if subfile in include:
-                        print("{} opened.".format(subfile))
+                        if verbose:
+                            print("{} opened.".format(subfile))
                         result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
                         results.append((subfile, result))
                 else:
                     if subfile in exclude:
-                        print("{} skipped.".format(subfile))
+                        if verbose:
+                            print("{} skipped.".format(subfile))
                     else:
-                        print("{} opened.".format(subfile))
+                        if verbose:
+                            print("{} opened.".format(subfile))
                         result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
                         results.append((subfile, result))
     return results

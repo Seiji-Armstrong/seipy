@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b159cb4f-dd85-485a-ad68-a0cb7f716fff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seipy/spark_/base.py" afterPath="$PROJECT_DIR$/seipy/spark_/base.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seipy/s3_.py" afterPath="$PROJECT_DIR$/seipy/s3_.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,7 +20,7 @@
       <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seipy/pandas_/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="777">
+            <state relative-caret-position="795">
               <caret line="424" column="7" lean-forward="true" selection-start-line="424" selection-start-column="7" selection-end-line="424" selection-end-column="7" />
               <folding>
                 <element signature="e#175#203#0" expanded="true" />
@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="s3_.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="s3_.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seipy/s3_.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="52" column="51" lean-forward="false" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
+            <state relative-caret-position="851">
+              <caret line="70" column="57" lean-forward="true" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -75,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seipy/spark_/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+            <state relative-caret-position="675">
+              <caret line="45" column="71" lean-forward="true" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -165,17 +165,17 @@
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/seipy/pcap/base.py" />
         <option value="$PROJECT_DIR$/seipy/pandas_/base.py" />
-        <option value="$PROJECT_DIR$/seipy/s3_.py" />
         <option value="$PROJECT_DIR$/seipy/base.py" />
         <option value="$PROJECT_DIR$/seipy/spark_/base.py" />
+        <option value="$PROJECT_DIR$/seipy/s3_.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2240" />
-    <option name="y" value="60" />
-    <option name="width" value="1135" />
-    <option name="height" value="975" />
+    <option name="x" value="3600" />
+    <option name="y" value="23" />
+    <option name="width" value="1463" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -416,10 +416,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2240" y="60" width="1135" height="975" extended-state="0" />
+    <frame x="3600" y="23" width="1463" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14272891" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12968099" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -816,14 +816,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seipy/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seipy/jupyter_.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -846,7 +838,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seipy/pandas_/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="777">
+        <state relative-caret-position="795">
           <caret line="424" column="7" lean-forward="true" selection-start-line="424" selection-start-column="7" selection-end-line="424" selection-end-column="7" />
           <folding>
             <element signature="e#175#203#0" expanded="true" />
@@ -854,21 +846,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seipy/s3_.py">
+    <entry file="file://$PROJECT_DIR$/seipy/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="51" lean-forward="false" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/seipy/spark_/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+        <state relative-caret-position="675">
+          <caret line="45" column="71" lean-forward="true" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="71" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seipy/s3_.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="851">
+          <caret line="70" column="57" lean-forward="true" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
