@@ -314,3 +314,13 @@ def replace_rn(strobj):
     This helper function mitigates this by replacing it with a benign alternative.
     """
     return strobj.replace('\r', 'esc-r-').replace('\n', 'esc-n-')
+
+
+def get_nested_item(data_dict, key_list):
+    """
+    obtain the deepest nested item in a nested dict given keys in a list.
+    """
+    item = data_dict.copy()
+    for k in key_list:
+        item = item[k]
+    return item

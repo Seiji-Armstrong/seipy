@@ -424,3 +424,19 @@ def mult_types(df):
     >> counts[counts != 1]
     """
     return df.applymap(type).drop_duplicates().apply(pd.Series.nunique)
+
+
+def collapse_hierarchy(orig_df: pd.DataFrame):
+    """
+    this collapses multilevel pandas columns into a single level by joining tokens with underscore.
+    Example:
+        orig_cols = [('a', 'max'), ('a', 'size'), ('b', '')]
+         new_cols = ['a_max', 'a_size', 'b']
+    """
+    gby = orig_df.copy()
+    if isinstance(gby.columns, pd.core.indexes.multi.MultiIndex):
+        gby.columns = ['_'.join(col).rstrip('_') for col in gby.columns.values]
+    else:
+        print("columns not MultiIndex, returning original.")
+    return gby
+
