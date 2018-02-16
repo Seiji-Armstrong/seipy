@@ -10,6 +10,29 @@ import json
 import pandas as pd
 
 
+class Stack:
+    """
+    simple stack class
+    """
+    def __init__(self):
+        self.items = []
+
+    def isEmpty(self):
+        return self.items == []
+
+    def push(self, item):
+        self.items.insert(0, item)
+
+    def pop(self):
+        return self.items.pop(0)
+
+    def peek(self):
+        return self.items[0]
+
+    def size(self):
+        return len(self.items)
+
+
 class LabeledData(dict):
     """Container object for datasets
 
@@ -324,3 +347,32 @@ def get_nested_item(data_dict, key_list):
     for k in key_list:
         item = item[k]
     return item
+
+
+def infix_to_postfix(infixexpr: str, token_regex: str, precedences: dict):
+    """
+    convert infix to postfix
+    adapted from http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
+    """
+    op_stack = Stack()
+    postfix_list = []
+    token_list = infixexpr.split()
+    for token in token_list:
+        if re.search(token_regex, token):
+            postfix_list.append(token)
+        elif token == '(':
+            op_stack.push(token)
+        elif token == ')':
+            top_token = op_stack.pop()
+            while top_token != '(':
+                postfix_list.append(top_token)
+                top_token = op_stack.pop()
+        else:
+            while (not op_stack.isEmpty()) and \
+               (precedences[op_stack.peek()] >= precedences[token]):
+                  postfix_list.append(op_stack.pop())
+            op_stack.push(token)
+
+    while not op_stack.isEmpty():
+        postfix_list.append(op_stack.pop())
+    return " ".join(postfix_list)
