@@ -353,6 +353,18 @@ def infix_to_postfix(infixexpr: str, token_regex: str, precedences: dict):
     """
     convert infix to postfix
     adapted from http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
+
+    Example usage:
+
+    >> token_regex = "c[0-9]"
+    >> prec = {"(": 1,
+        "MINUS": 2,
+        "OR": 3,
+        "AND": 4}
+    >> expr = '( c1 AND c2 ) MINUS c3'
+    >> infix_to_postfix(expr, token_regex, prec)
+    [out]:  'c1 c2 AND c3 MINUS'
+
     """
     op_stack = Stack()
     postfix_list = []
@@ -376,3 +388,27 @@ def infix_to_postfix(infixexpr: str, token_regex: str, precedences: dict):
     while not op_stack.isEmpty():
         postfix_list.append(op_stack.pop())
     return " ".join(postfix_list)
+
+
+def postfix_computer(tokens: list, logic: dict, operations: dict):
+    """
+    compute postfix expression given list of tokens.
+     Each token in `tokens` must either be a key in `logic` or `operations`
+     Example:
+          op_dict = {'AND': lambda x,y: np.logical_and(x,y),
+           'OR': lambda x,y: np.logical_or(x,y),
+           'MINUS': lambda x,y: np.logical_and(x, np.logical_not(y))
+          }
+    """
+
+    stack = []
+    for token in tokens:
+        if token in logic:
+            stack.append(logic[token])
+            continue
+
+        op2, op1 = stack.pop(), stack.pop()
+        if token in operations:
+            stack.append(operations[token](op1, op2))
+
+    return stack.pop()
