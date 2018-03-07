@@ -412,3 +412,25 @@ def postfix_computer(tokens: list, logic: dict, operations: dict):
             stack.append(operations[token](op1, op2))
 
     return stack.pop()
+
+
+def list_import_modules(library_root):
+    """
+    given the root dir of python library, return unique list of import modules.
+      Useful for `install_requires` flag in setup.py, for example.
+    """
+    py_files = relevant_files(library_root, include_regex=".py", exclude=".pyc")
+    import_lines = []
+    for one_file in py_files:
+        with open(one_file, "r") as f:
+            lines = f.readlines()
+        for i, line in enumerate(lines):
+            if "import " in line:
+                if "from" in line:
+                    root = line.strip('\n').split('from ')[1]
+                else:
+                    root = line.strip('\n').split('import ')[1]
+                root = root.split(' ')[0].split('.')[0]
+                if root:
+                    import_lines.append(root)
+    return list(set(import_lines))
