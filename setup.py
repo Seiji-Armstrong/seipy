@@ -15,14 +15,14 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='seipy',
-    version='1.2.0b1',
+    version='1.3.0',
     description='Helper functions for data science',
     long_description=long_description,
     url='https://github.com/Seiji-Armstrong/seipy',
     author_email='seiji.armstrong@gmail.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'License :: OSI Approved :: MIT License',
