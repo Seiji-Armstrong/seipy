@@ -4,6 +4,7 @@ from ..s3_ import get_creds
 def s3spark_init(cred_fpath="~/.aws/credentials"):
     """
     initialise SparkSession for use with Jupyter and s3 SQL queries
+    Includes support for s3a
     Returns spark session
 
     aws credentials file default path: "~/.aws/credentials"
@@ -24,6 +25,10 @@ def s3spark_init(cred_fpath="~/.aws/credentials"):
     hadoopConf.set("fs.s3.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
     hadoopConf.set("fs.s3.awsAccessKeyId", myAccessKey)
     hadoopConf.set("fs.s3.awsSecretAccessKey", mySecretKey)
+    hadoopConf.set("fs.s3a.access.key", myAccessKey);
+    hadoopConf.set("fs.s3a.secret.key", mySecretKey);
+    hadoopConf.set("fs.s3a.awsAccessKeyId", myAccessKey);
+    hadoopConf.set("fs.s3a.awsSecretAccessKey", mySecretKey);
     return spark
 
 
