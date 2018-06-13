@@ -21,7 +21,7 @@ def get_creds(cred_fpath=None):
     return myAccessKey, mySecretKey
 
 
-def s3zip_func(s3zip_path, _func=None, cred_fpath=None, verbose=False, **kwargs):
+def s3zip_func(s3zip_path, _func=None, cred_fpath=None, num_files=-1, verbose=False, **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
      func must accept `fpath` and `fname` as key word arguments.
@@ -59,5 +59,8 @@ def s3zip_func(s3zip_path, _func=None, cred_fpath=None, verbose=False, **kwargs)
 
         # Read the file as a zipfile and process the members
         with zipfile.ZipFile(tf, mode='r') as zipf:
-            results = [operate(subfile, _func, verbose, **kwargs) for subfile in zipf.namelist()]
+            zipfiles = zipf.namelist()
+            if num_files == -1:
+                num_files = len(zipfiles)
+            results = [operate(subfile, _func, verbose, **kwargs) for subfile in zipfiles[:num_files]]
     return results
