@@ -10,7 +10,7 @@ def s3spark_init(cred_fpath="~/.aws/credentials"):
     aws credentials file default path: "~/.aws/credentials"
     """
     import os
-    os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.6.0 pyspark-shell'
+    os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages com.amazonaws:aws-java-sdk:1.10.34,org.apache.hadoop:hadoop-aws:2.7.0 pyspark-shell'
 
     from pyspark.sql import SparkSession
 

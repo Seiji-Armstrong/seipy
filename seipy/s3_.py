@@ -21,7 +21,7 @@ def get_creds(cred_fpath=None):
     return myAccessKey, mySecretKey
 
 
-def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_fpath=None, verbose=False, **kwargs):
+def s3zip_func(s3zip_path, _func=None, cred_fpath=None, verbose=False, **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
      func must accept `fpath` and `fname` as key word arguments.
@@ -30,6 +30,16 @@ def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_f
 
     adapted from https://stackoverflow.com/questions/23376816/python-s3-download-zip-file
     """
+
+    def operate(subfile, _func, verbose, **kwargs):
+        if verbose:
+            print("current time is {}".format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+            print("{} opened.".format(subfile))
+        if _func is None:
+            return subfile
+        else:
+            return _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
+
     s3bucket, s3zip = s3zip_path.split("s3://")[-1].split('/', 1)
     myAccessKey, mySecretKey = get_creds(cred_fpath=cred_fpath)
 
@@ -42,8 +52,6 @@ def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_f
     bucket = s3.Bucket(s3bucket)
     obj = bucket.Object(s3zip)
 
-    results = []
-
     with io.BytesIO(obj.get()["Body"].read()) as tf:
 
         # rewind the file
@@ -51,22 +59,5 @@ def s3zip_func(s3zip_path, _func, include: list = [], exclude: list = [], cred_f
 
         # Read the file as a zipfile and process the members
         with zipfile.ZipFile(tf, mode='r') as zipf:
-            for subfile in zipf.namelist():
-                if verbose:
-                    print("current time is {}".format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-                if include:
-                    if subfile in include:
-                        if verbose:
-                            print("{} opened.".format(subfile))
-                        result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
-                        results.append((subfile, result))
-                else:
-                    if subfile in exclude:
-                        if verbose:
-                            print("{} skipped.".format(subfile))
-                    else:
-                        if verbose:
-                            print("{} opened.".format(subfile))
-                        result = _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
-                        results.append((subfile, result))
+            results = [operate(subfile, _func, verbose, **kwargs) for subfile in zipf.namelist()]
     return results
