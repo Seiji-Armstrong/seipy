@@ -27,6 +27,7 @@ def s3zip_func(s3zip_path, _func=None, cred_fpath=None, num_files=-1, verbose=Fa
      func must accept `fpath` and `fname` as key word arguments.
     fpath: pointer to unzipped subfile in zip file
     fname: str of subfile in zip file
+    num_files: int: if -1 include all files
 
     adapted from https://stackoverflow.com/questions/23376816/python-s3-download-zip-file
     """
