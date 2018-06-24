@@ -15,7 +15,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='seipy',
-    version='1.3.0',
+    version='1.3.2',
     description='Helper functions for data science',
     long_description=long_description,
     url='https://github.com/Seiji-Armstrong/seipy',
