@@ -34,6 +34,7 @@ setup(
     keywords='pandas numpy spark jupyter data-science machine-learning s3',
     packages=find_packages(exclude=[]),
     install_requires=['pandas',
+                      'requests',
                       'scipy',
                       'scikit-learn',
                       'numpy',

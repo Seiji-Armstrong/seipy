@@ -17,7 +17,7 @@ def get_creds(cred_fpath=None, api_path=None):
     else:
         r = requests.get(api_path)
         creds = r.json()
-        myAccessKey = creds["myAccessKey"]
+        myAccessKey = creds["AccessKeyId"]
         mySecretKey = creds["SecretAccessKey"]
     return myAccessKey, mySecretKey
 
