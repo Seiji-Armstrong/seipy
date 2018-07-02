@@ -14,12 +14,14 @@ def get_creds(cred_fpath=None, api_path=None):
         keys = pd.read_csv(cred_fpath, sep="=")
         myAccessKey = keys.loc['aws_access_key_id ']['[default]'].strip()
         mySecretKey = keys.loc['aws_secret_access_key ']['[default]'].strip()
+        myToken = ""
     else:
         r = requests.get(api_path)
         creds = r.json()
         myAccessKey = creds["AccessKeyId"]
         mySecretKey = creds["SecretAccessKey"]
-    return myAccessKey, mySecretKey
+        myToken = creds["Token"]
+    return myAccessKey, mySecretKey, myToken
 
 
 def s3zip_func(s3zip_path, _func=None, cred_fpath=None, api_path=None, num_files=-1, verbose=False, include=None, **kwargs):
@@ -43,11 +45,12 @@ def s3zip_func(s3zip_path, _func=None, cred_fpath=None, api_path=None, num_files
             return _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
 
     s3bucket, s3zip = s3zip_path.split("s3://")[-1].split('/', 1)
-    myAccessKey, mySecretKey = get_creds(cred_fpath=cred_fpath, api_path=api_path)
+    myAccessKey, mySecretKey, myToken = get_creds(cred_fpath=cred_fpath, api_path=api_path)
 
     session = boto3.session.Session(
         aws_access_key_id=myAccessKey,
-        aws_secret_access_key=mySecretKey
+        aws_secret_access_key=mySecretKey,
+        aws_session_token=myToken
     )
 
     s3 = session.resource("s3")

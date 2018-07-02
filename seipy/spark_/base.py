@@ -21,15 +21,18 @@ def s3spark_init(cred_fpath="~/.aws/credentials", api_path=None):
         .getOrCreate()
 
     hadoopConf = spark.sparkContext._jsc.hadoopConfiguration()
-    myAccessKey, mySecretKey = get_creds(cred_fpath=cred_fpath, api_path=api_path)
+    myAccessKey, mySecretKey, myToken = get_creds(cred_fpath=cred_fpath, api_path=api_path)
 
     hadoopConf.set("fs.s3.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
     hadoopConf.set("fs.s3.awsAccessKeyId", myAccessKey)
     hadoopConf.set("fs.s3.awsSecretAccessKey", mySecretKey)
+    hadoopConf.set("fs.s3.awsSessionToken", myToken)
     hadoopConf.set("fs.s3a.access.key", myAccessKey)
     hadoopConf.set("fs.s3a.secret.key", mySecretKey)
+    hadoopConf.set("fs.s3a.session.token", myToken)
     hadoopConf.set("fs.s3a.awsAccessKeyId", myAccessKey)
     hadoopConf.set("fs.s3a.awsSecretAccessKey", mySecretKey)
+    hadoopConf.set("fs.s3a.awsSessionToken", myToken)
     return spark
 
 
