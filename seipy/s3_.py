@@ -2,10 +2,11 @@ import zipfile
 import boto3
 import io
 import datetime
+import requests
 import pandas as pd
 
 
-def get_creds(cred_fpath=None):
+def get_creds(cred_fpath=None, api_path=None):
     """helper function to obtain aws keys
     """
     if cred_fpath is not None:
@@ -14,14 +15,14 @@ def get_creds(cred_fpath=None):
         myAccessKey = keys.loc['aws_access_key_id ']['[default]'].strip()
         mySecretKey = keys.loc['aws_secret_access_key ']['[default]'].strip()
     else:
-        print("type in aws access key yo:")
-        myAccessKey = input()
-        print("type in aws secret key yo:")
-        mySecretKey = input()
+        r = requests.get(api_path)
+        creds = r.json()
+        myAccessKey = creds["myAccessKey"]
+        mySecretKey = creds["SecretAccessKey"]
     return myAccessKey, mySecretKey
 
 
-def s3zip_func(s3zip_path, _func=None, cred_fpath=None, num_files=-1, verbose=False, include=None, **kwargs):
+def s3zip_func(s3zip_path, _func=None, cred_fpath=None, api_path=None, num_files=-1, verbose=False, include=None, **kwargs):
     """
     unzip a zip file on s3 and perform func with kwargs.
      func must accept `fpath` and `fname` as key word arguments.
@@ -42,7 +43,7 @@ def s3zip_func(s3zip_path, _func=None, cred_fpath=None, num_files=-1, verbose=Fa
             return _func(fpath=zipf.open(subfile), fname=subfile, **kwargs)
 
     s3bucket, s3zip = s3zip_path.split("s3://")[-1].split('/', 1)
-    myAccessKey, mySecretKey = get_creds(cred_fpath=cred_fpath)
+    myAccessKey, mySecretKey = get_creds(cred_fpath=cred_fpath, api_path=api_path)
 
     session = boto3.session.Session(
         aws_access_key_id=myAccessKey,
